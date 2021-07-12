@@ -67,6 +67,7 @@ import com.smartneck.fit.Fit.UserInfoEdit.Fit_UserInfoEditListActivity;
 import com.smartneck.fit.Fit.util.Fit_Address;
 import com.smartneck.fit.Fit.util.Fit_BluetoothUtils;
 import com.smartneck.fit.Fit.util.Fit_BottomNavigationHelper;
+import com.smartneck.fit.Fit.util.Fit_Commend;
 import com.smartneck.fit.Fit.util.Fit_Constants;
 import com.smartneck.fit.Fit.util.Fit_HttpConnect;
 import com.smartneck.fit.Fit.util.Fit_Param;
@@ -2336,6 +2337,8 @@ public class Fit_MainActivity extends AppCompatActivity implements NavigationVie
                         @Override
                         public void run() {
                             progressDialog.show(getString(R.string.dialog_ble_init));
+
+                            Log.e("Go_EXERCISE","seat : "+Fit_Preset.seat+",\n setup : "+Fit_Preset.setup + ",\n weight : " + Fit_Preset.measureSetup);
                         }
                     });
 
@@ -2352,10 +2355,13 @@ public class Fit_MainActivity extends AppCompatActivity implements NavigationVie
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    setMessage(new Commend().sendGoExercise((byte) Fit_Preset.seat, (byte) Fit_Preset.setup));
+//                    setMessage(new Fit_Commend().sendGoExercise((byte) Fit_Preset.seat, (byte) Fit_Preset.setup));
+//                    Log.e("Go_EXERCISE","seat : "+Fit_Preset.seat+", setup"+Fit_Preset.setup);
                     try {
                         while (true) {
                             Thread.sleep(300);
+                            setMessage(new Fit_Commend().sendGoExercise((byte) Fit_Preset.seat, (byte) Fit_Preset.setup));
+                            setMessage(new Fit_Commend().sendWeightMove((byte) Fit_Preset.measureSetup));
                             Log.e("확인", isWeightMove + "" + isSeatMove);
                             if (isWeightMove == false && isSeatMove == false) {
                                 SettingOn = false;

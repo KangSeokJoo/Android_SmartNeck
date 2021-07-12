@@ -31,7 +31,6 @@ import com.ssomai.android.scalablelayout.ScalableLayout;
 import static com.smartneck.fit.Fit.Main.Fit_MainActivity.isHeiProgress;
 import static com.smartneck.fit.Fit.Main.Fit_MainActivity.isWeiProgress;
 import static com.smartneck.fit.Fit.Main.Fit_MainActivity.setMessage;
-import static com.smartneck.fit.Fit.Main.Fit_WeightSettingFragment.FMaxZero;
 //import static com.smartneck.twofive.Fit.util.Fit_Constants.POUND;
 
 public class Fit_MeasureActivity extends AppCompatActivity {
@@ -174,7 +173,7 @@ public class Fit_MeasureActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (CFG_HEIGHT[1] > 0) return;
-                if ((currentWeight + 0.5) >= 6.0) {
+                if ((currentWeight + 0.5) >= 6.5 || currentWeight >= 6.0) {
                     return;
                 }
                 if (Fit_Preset.measureSetup >= 60){
@@ -189,7 +188,6 @@ public class Fit_MeasureActivity extends AppCompatActivity {
                 tv_weight_max.setText("0.0");
                 currentWeight += 0.5;
                 Fit_Preset.measureSetup += 5;
-                FMaxZero = false;
                 tv_weight.setText(String.valueOf(Fit_Preset.measureSetup*0.1));
 
 
@@ -212,7 +210,7 @@ public class Fit_MeasureActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (CFG_HEIGHT[1] > 0) return;
-                if ((currentWeight - 0.5) < 0) {
+                if ((currentWeight - 0.5) < -0.5 || currentWeight <= 0) {
                     return;
                 }
                 if (Fit_Preset.measureSetup <= 0){
@@ -229,7 +227,6 @@ public class Fit_MeasureActivity extends AppCompatActivity {
                 currentWeight -= 0.5;
                 Fit_Preset.measureSetup -= 5;
                 tv_weight.setText(String.valueOf(Fit_Preset.measureSetup*0.1));
-                FMaxZero = true;
 
 //                if (protocolType.equals("3a")){
 //                    ((Fit_MainActivity) Fit_MainActivity.mContext).setMessage(Fit_StringUtils.getCommand("44 3A 04 02 02"));
@@ -659,9 +656,9 @@ public class Fit_MeasureActivity extends AppCompatActivity {
 
 
                         //double height_limit = CFG_HEIGHT_MAX[1] * 0.8;
-//                        if (CFG_WEIGHT[1] > CFG_WEIGHT_MAX[1]) {
-//                            CFG_WEIGHT_MAX[1] = CFG_WEIGHT[1];
-//                        }
+                        if (CFG_WEIGHT[1] > CFG_WEIGHT_MAX[1] && CFG_HEIGHT[1] > 0) {
+                            CFG_WEIGHT_MAX[1] = CFG_WEIGHT[1];
+                        }
                         break;
                 }
                 break;
@@ -728,8 +725,8 @@ public class Fit_MeasureActivity extends AppCompatActivity {
                                         }
                                         return;
                                     }
-//                                    if (CFG_WEIGHT[1] >= CFG_WEIGHT_MAX[1] && CFG_HEIGHT[1] > 0)
-//                                        CFG_WEIGHT_MAX[1] = CFG_WEIGHT[1];
+                                    if (CFG_WEIGHT[1] >= CFG_WEIGHT_MAX[1] && CFG_HEIGHT[1] > 0)
+                                        CFG_WEIGHT_MAX[1] = CFG_WEIGHT[1];
                                     if (CFG_WEIGHT[1] >= 130 || CFG_WEIGHT_MAX[1] >= 130) {
                                         CFG_WEIGHT[1] = 0;
                                         CFG_WEIGHT_MAX[1] = 0;

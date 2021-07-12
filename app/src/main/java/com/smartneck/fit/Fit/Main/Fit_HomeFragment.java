@@ -289,17 +289,17 @@ public class Fit_HomeFragment extends Fragment {
             return true;
         }else {
             Toast.makeText(mContext, Fit_MainActivity.mContext.getString(R.string.toast_please_connect), Toast.LENGTH_SHORT).show();
-            return false;
+            return true;
             //태그1
         }
     }
     boolean isMeasure(){
         if (Fit_Preset.MaxWeight == 0 || Fit_Preset.MaxHeight == 0){
             Toast.makeText(mContext, getString(R.string.toast_please_measure), Toast.LENGTH_SHORT).show();
-            return false;
+            return true;
             //태그 2
         }else{
-            return false;
+            return true;
         }
     }
 

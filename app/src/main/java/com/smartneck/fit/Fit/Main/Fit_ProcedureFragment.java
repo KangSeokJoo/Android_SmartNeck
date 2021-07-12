@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.smartneck.fit.Fit.util.Fit_Address;
+import com.smartneck.fit.Fit.util.Fit_Commend;
 import com.smartneck.fit.Fit.util.Fit_HttpConnect;
 import com.smartneck.fit.Fit.util.Fit_NoticeDialog;
 import com.smartneck.fit.Fit.util.Fit_Param;
@@ -396,7 +397,7 @@ public class Fit_ProcedureFragment extends Fragment {
                 }else{
                     Fit_Preset.setup +=5;
                     tv_weight.setText(String.valueOf((Fit_Preset.setup) * 0.1));
-                    setMessage(new Commend().sendWeightMove((byte) Fit_Preset.setup));
+                    setMessage(new Fit_Commend().sendWeightMove((byte) Fit_Preset.setup));
                 }
             }
         });
@@ -410,7 +411,7 @@ public class Fit_ProcedureFragment extends Fragment {
                 }else{
                     Fit_Preset.setup -=5;
                     tv_weight.setText(String.valueOf((Fit_Preset.setup) * 0.1));
-                    setMessage(new Commend().sendWeightMove((byte) Fit_Preset.setup));
+                    setMessage(new Fit_Commend().sendWeightMove((byte) Fit_Preset.setup));
                 }
             }
         });

@@ -213,6 +213,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden"/>
         <activity
+            android:name=".Fit.Notice.Fit_NoticeActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Fit.Notice.Fit_NoticeListActivity"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name="com.smartneck.fit.Fit.CustomerSupport.Controller.Fit_Customer1To1Activity"
             android:theme="@style/AppTheme" />
         <activity

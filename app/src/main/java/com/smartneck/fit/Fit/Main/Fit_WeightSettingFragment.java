@@ -49,7 +49,6 @@ public class Fit_WeightSettingFragment extends Fragment {
     boolean isDestroy = false;
     public static int tmpSetup;
     ImageView gif;
-    public static boolean FMaxZero;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,13 +74,14 @@ public class Fit_WeightSettingFragment extends Fragment {
 //
 //        }else if (protocolType.equals("3b")){
         setMessage(new Fit_Commend().sendWeightMove((byte) Fit_Preset.measureSetup));
+
 //        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
+        tv_result.setText(String.valueOf(Fit_Preset.measureSetup * 0.1));
     }
 
     @Override
@@ -167,7 +167,7 @@ public class Fit_WeightSettingFragment extends Fragment {
 //                resultMax = 0;
                 tv_result_max.setText(String.valueOf(resultMax));
 
-                    FMaxZero = false;
+
 
 
 
@@ -198,7 +198,7 @@ public class Fit_WeightSettingFragment extends Fragment {
 //                resultMax = 0;
                 tv_result_max.setText(String.valueOf(resultMax));
 
-                        FMaxZero = true;
+
 
 
 //                if (protocolType.equals("3a")){
@@ -260,7 +260,7 @@ public class Fit_WeightSettingFragment extends Fragment {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-
+                                tv_result.setText(String.valueOf(Fit_Preset.measureSetup * 0.1));
 //                            double result = CFG_WEIGHT[1] * 0.1;
                                 Log.e(TAG, "setTextThread: " + CFG_WEIGHT[1] + " / " + currentWeight + " / " + CFG_WEIGHT_MAX[1]);
 //                                if (CFG_WEIGHT[1] >= CFG_WEIGHT_MAX[1] ) {

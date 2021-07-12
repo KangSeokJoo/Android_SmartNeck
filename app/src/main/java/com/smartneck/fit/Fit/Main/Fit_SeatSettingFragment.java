@@ -29,6 +29,7 @@ import static com.smartneck.fit.Fit.Main.Fit_MainActivity.audioStop;
 import static com.smartneck.fit.Fit.Main.Fit_MainActivity.isClick;
 import static com.smartneck.fit.Fit.Main.Fit_MainActivity.setMessage;
 import static com.smartneck.fit.Fit.util.Fit_Constants.TAG;
+import static com.smartneck.fit.Main.MainActivity.preset;
 
 public class Fit_SeatSettingFragment extends Fragment {
     ViewGroup view;
@@ -88,6 +89,7 @@ public class Fit_SeatSettingFragment extends Fragment {
         Fit_MainActivity.setAudio("chair");
         onClickBotton();
         onClickPosition();
+        setSeatTextThraed();
     }
 
     void onClickPosition() {
@@ -135,6 +137,28 @@ public class Fit_SeatSettingFragment extends Fragment {
                 }
             }
         });
+    }
+    void setSeatTextThraed() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                isActivitiy = true;
+                while (isActivitiy) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            tv_seat.setText(String.valueOf(Fit_Preset.seat));
+                        }
+                    });
+                }
+            }
+        }).start();
     }
 
     void onClickBotton() {
