@@ -44,6 +44,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.smartneck.fit.Fit.util.Fit_Constants.TAG;
@@ -94,7 +95,6 @@ public class Fit_ChartActivity extends Fit_DemoBase {
         tv_height = findViewById(R.id.tv_chart_height);
         tv_weight = findViewById(R.id.tv_chart_weight);
         tv_exercise = findViewById(R.id.tv_chart_exercise);
-
 
         tv_header_date = findViewById(R.id.tv_header_date);
         tv_header_count = findViewById(R.id.tv_header_count);
@@ -535,6 +535,8 @@ public class Fit_ChartActivity extends Fit_DemoBase {
         tv_axis_y.setVisibility(View.GONE);
         listview_container.setVisibility(View.GONE);
         chart_container.setVisibility(View.VISIBLE);
+        dateArray.clear();
+        values.clear();
 
         new Thread(new Runnable() {
             @Override
@@ -870,6 +872,7 @@ public class Fit_ChartActivity extends Fit_DemoBase {
                 Log.d(TAG, " - - - - - getExerciseData: Date->" + stop);
 
             }
+            Collections.reverse(exerciseItems);
 
             new Thread(new Runnable() {
                 @Override

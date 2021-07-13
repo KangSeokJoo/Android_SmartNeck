@@ -49,12 +49,7 @@ public class Fit_IntroActivity extends AppCompatActivity {
 
         // audioManager.setStreamVolume(볼륨컨트롤, 뷰륨크기, 볼륨상태(audioManager.FLAG...으로 시작하는 인자들...) );
         //Stream music volume max = 15
-        if (Build.VERSION_CODES.Q >= Build.VERSION.SDK_INT) {
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 10, 0);
-        }else {
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 1, 0);
-        }
-
     }
 
     /*

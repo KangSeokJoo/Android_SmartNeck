@@ -31,6 +31,7 @@ import com.smartneck.fit.Fit.util.Fit_Param;
 import com.smartneck.fit.Fit.util.User.Fit_Preset;
 import com.smartneck.fit.Fit.util.User.Fit_User;
 
+import static com.smartneck.fit.Fit.Fit_MeasureActivity.CFG_HEIGHT_MAX;
 import static com.smartneck.fit.Fit.Main.Fit_MainActivity.audioStop;
 import static com.smartneck.fit.Fit.Main.Fit_MainActivity.isExProgress;
 import static com.smartneck.fit.Fit.Main.Fit_MainActivity.mConnected;
@@ -378,8 +379,7 @@ public class Fit_ExerciseFragment extends Fragment {
         String angleSign = "°";
 //        String lengthSign_ko = "mm";
 //        String lengthSign_en = "inch";
-//        float height = Fit_Preset.MaxHeight * 3;
-        float angle = 1f;
+        float angle = Fit_Preset.MaxHeight * 1f;;
         String heightStr = "";
         String angleStr = "";
 //        if (Fit_User.language.equals("ko")) {

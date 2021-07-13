@@ -801,7 +801,7 @@ public class Fit_MeasureActivity extends AppCompatActivity {
                             });
                         }
                 }).start();
-                break;
+                break; 
         }
     }
 

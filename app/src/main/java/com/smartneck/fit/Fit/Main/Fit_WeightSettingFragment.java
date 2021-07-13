@@ -165,7 +165,7 @@ public class Fit_WeightSettingFragment extends Fragment {
                 tv_result_max.setText("0.0");
 //                CFG_WEIGHT_MAX[1] = 0;
 //                resultMax = 0;
-                tv_result_max.setText(String.valueOf(resultMax));
+//                tv_result_max.setText(String.valueOf(resultMax));
 
 
 
@@ -194,9 +194,10 @@ public class Fit_WeightSettingFragment extends Fragment {
                 Fit_Preset.measureSetup -= 5;
                 currentWeight -= 0.5;
                 tv_result.setText(String.valueOf(Fit_Preset.measureSetup * 0.1));
+                tv_result_max.setText("0.0");
 //                CFG_WEIGHT_MAX[1] = 0;
 //                resultMax = 0;
-                tv_result_max.setText(String.valueOf(resultMax));
+//                tv_result_max.setText(String.valueOf(resultMax));
 
 
 

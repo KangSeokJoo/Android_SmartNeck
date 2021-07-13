@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Fit_CustomerFAQActivity extends AppCompatActivity {
     Handler handler;
@@ -105,9 +106,8 @@ public class Fit_CustomerFAQActivity extends AppCompatActivity {
                     faqItems.add(new Fit_CustomerFaqItem(questions , answer));
 
                 }
-
-
             }
+            Collections.reverse(faqItems);
             handler.post(new Runnable() {
                 @Override
                 public void run() {
