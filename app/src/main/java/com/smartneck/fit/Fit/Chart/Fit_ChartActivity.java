@@ -50,7 +50,10 @@ import java.util.List;
 import static com.smartneck.fit.Fit.util.Fit_Constants.TAG;
 import static com.smartneck.fit.Fit.util.Fit_Constants.ageArrayListFemale;
 import static com.smartneck.fit.Fit.util.Fit_Constants.ageArrayListMale;
+import static com.smartneck.fit.Fit.util.User.Fit_Preset.MaxWeight;
 import static com.smartneck.fit.Fit.util.User.Fit_User.MemberNo;
+import static com.smartneck.fit.Fit.util.User.Fit_User.age;
+import static com.smartneck.fit.Fit.util.User.Fit_User.gender;
 import static com.smartneck.fit.Fit.util.User.Fit_User.token;
 
 
@@ -74,6 +77,8 @@ public class Fit_ChartActivity extends Fit_DemoBase {
     LinearLayout listview_container;
 
     ImageView btn_dismiss;
+    private YAxis leftAxis;
+    private boolean isage = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +136,8 @@ public class Fit_ChartActivity extends Fit_DemoBase {
 
                 setAge();
                 setTabButtonColor(1);
+                leftAxis.setAxisMaximum(10);
+                leftAxis.setLabelCount(10, false);
             }
         });
 
@@ -143,6 +150,8 @@ public class Fit_ChartActivity extends Fit_DemoBase {
                 setTabButtonColor(2);
                 setHeight();
                 setTitleSize();
+                leftAxis.setAxisMaximum(90);
+                leftAxis.setLabelCount(10, false);
             }
         });
         tv_weight.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +162,8 @@ public class Fit_ChartActivity extends Fit_DemoBase {
                 setTabButtonColor(3);
                 setWeight();
                 setTitleSize();
+                leftAxis.setAxisMaximum(10);
+                leftAxis.setLabelCount(10, false);
             }
         });
         tv_exercise.setOnClickListener(new View.OnClickListener() {
@@ -222,7 +233,6 @@ public class Fit_ChartActivity extends Fit_DemoBase {
 
         ValueFormatter xAxisFormatter = new Fit_HeightAxisValueFormatter(chart, dateArray);
 
-
         xAxis.setValueFormatter(xAxisFormatter);
 
         Fit_XYMarkerView mv = new Fit_XYMarkerView(this, xAxisFormatter);
@@ -232,9 +242,10 @@ public class Fit_ChartActivity extends Fit_DemoBase {
 
         ValueFormatter custom = new Fit_MyValueFormatter("");
 
-        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis = chart.getAxisLeft();
         leftAxis.setTypeface(tfLight);
-        leftAxis.setLabelCount(8, false);
+
+//        leftAxis.setLabelCount(8, false);
         leftAxis.setValueFormatter(custom);
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         leftAxis.setSpaceTop(15f);
@@ -242,6 +253,10 @@ public class Fit_ChartActivity extends Fit_DemoBase {
         leftAxis.setDrawGridLines(true);
         leftAxis.setTextSize(14);
 
+        if (isage){
+            leftAxis.setAxisMaximum(10);
+            leftAxis.setLabelCount(10, false);
+        }
         if (chart.getData() != null &&
                 chart.getData().getDataSetCount() > 0) {
 
@@ -349,6 +364,7 @@ public class Fit_ChartActivity extends Fit_DemoBase {
         tv_axis_x.setText(getString(R.string.chart_length));
         tv_axis_y.setText("(" + getString(R.string.statistics_menu_exercise_colume_date) + ")");
         tv_axis_y.setVisibility(View.VISIBLE);
+        isage = false;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -381,8 +397,7 @@ public class Fit_ChartActivity extends Fit_DemoBase {
     }
 
     private void getHeightJson(String JsonString) {
-        dateArray.clear();
-        values.clear();
+
         try {
             JSONArray jsonArray = new JSONArray(JsonString);
             int count = 0;
@@ -392,6 +407,9 @@ public class Fit_ChartActivity extends Fit_DemoBase {
                 count = 5;
             }
             int idx = 0;
+
+            dateArray.clear();
+            values.clear();
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -538,6 +556,7 @@ public class Fit_ChartActivity extends Fit_DemoBase {
         dateArray.clear();
         values.clear();
 
+        isage = true;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -576,16 +595,16 @@ public class Fit_ChartActivity extends Fit_DemoBase {
             float max = 0;
             float min = 0;
             float avg = 0;
-            float mine = Fit_Preset.MaxWeight * 0.1f;
+            float mine = MaxWeight * 0.1f;
 
             int neckage = 0;
 
             List<Integer> tmpAgeArrayList = new ArrayList<>();
 
-            if (Fit_User.gender.equals("남자")) {
-                if (Fit_User.age < 17) {
-                    neckage = 0;
-                } else if (Fit_User.age >= 17) {
+            if (gender.equals("남자")) {
+//                if (age < 17) {
+//                    neckage = 0;
+//                } else if (age >= 17) {
                     float tmpMine = mine;
                     if (tmpMine > 10){
                         tmpMine = 10;
@@ -606,8 +625,8 @@ public class Fit_ChartActivity extends Fit_DemoBase {
                         }else{
                             tmpNum = tmpAgeArrayList.get(i);
 
-                            if (tmpNum == Fit_User.age){
-                                tmpMin = Fit_User.age;
+                            if (tmpNum == age){
+                                tmpMin = age;
                                 break;
                             }
 
@@ -622,11 +641,11 @@ public class Fit_ChartActivity extends Fit_DemoBase {
 
                     neckage = tmpMin;
                     Log.d(TAG, " * * * * * * * * * * resultAge: " + neckage);
-                }
-            }else if (Fit_User.gender.equals("여자")) {
-                if (Fit_User.age < 17) {
-                    neckage = 0;
-                } else if (Fit_User.age >= 17) {
+//                }
+            }else if (gender.equals("여자")) {
+//                if (age < 17) {
+//                    neckage = 0;
+//                } else if (age >= 17) {
                     float tmpMine = mine;
                     if (tmpMine > 8.5){
                         tmpMine = 8.5f;
@@ -649,8 +668,8 @@ public class Fit_ChartActivity extends Fit_DemoBase {
 
                             tmpNum = tmpAgeArrayList.get(i);
 
-                            if (tmpNum == Fit_User.age){
-                                tmpMin = Fit_User.age;
+                            if (tmpNum == age){
+                                tmpMin = age;
                                 break;
                             }
 
@@ -666,46 +685,45 @@ public class Fit_ChartActivity extends Fit_DemoBase {
 
                     neckage = tmpMin;
                     Log.d(TAG, " * * * * * * * * * * resultAge: " + neckage);
-                }
+//                }
             }
 
 
-            if (Fit_User.gender.equals("남자")) {
+            if (gender.equals("남자")) {
                 if (ageArrayListMale.size() > 0)
-                for (int i = 0; i < Fit_Constants.ageArrayListMale.size(); i++) {
-
-                    if (Fit_User.age == Fit_Constants.ageArrayListMale.get(i).getAge()) {
-                        avg = Fit_Constants.ageArrayListMale.get(i).getAgeWeight();
+                for (int i = 0; i < ageArrayListMale.size(); i++) {
+                    if (neckage == ageArrayListMale.get(i).getAge()) {
+                        avg = ageArrayListMale.get(i).getAgeWeight();
                         break;
                     }
                 }
-            } else if (Fit_User.gender.equals("여자")) {
+            } else if (gender.equals("여자")) {
                 if (ageArrayListFemale.size() >0)
-                for (int i = 0; i < Fit_Constants.ageArrayListFemale.size(); i++) {
-                    if (Fit_User.age == Fit_Constants.ageArrayListFemale.get(i).getAge()) {
-                        avg = Fit_Constants.ageArrayListFemale.get(i).getAgeWeight();
+                for (int i = 0; i < ageArrayListFemale.size(); i++) {
+                    if (neckage == ageArrayListFemale.get(i).getAge()) {
+                        avg = ageArrayListFemale.get(i).getAgeWeight();
                         break;
                     }
                 }
             }
-            Log.d(TAG, "getAgeJson: Age = " + Fit_User.age);
-            Log.d(TAG, "getAgeJson: Gender = " + Fit_User.gender);
+            Log.d(TAG, "getAgeJson: Age = " + age);
+            Log.d(TAG, "getAgeJson: Gender = " + gender);
             Log.d(TAG, "getAgeJson: AVG = " + avg);
             Log.d(TAG, "getAgeJson: Size = " + ageArrayListMale.size());
             max = avg + 15;
-            if (Fit_Preset.MaxWeight > max) {
-                max = Fit_Preset.MaxWeight;
+            if (MaxWeight > max) {
+                max = MaxWeight;
             }
             min = mine / 0.2f;
 
             if (min == 0) {
                 min = 15;
             }
-            if (neckage == 0){
-                max = 0;
-                min = 0;
-                avg = 0;
-            }
+//            if (neckage == 0){
+//                max = 0;
+//                min = 0;
+//                avg = 0;
+//            }
 
 //            if (Fit_User.language.equals("ko")) {
                 values.add(new BarEntry(0, max * 0.1f));
@@ -735,10 +753,7 @@ public class Fit_ChartActivity extends Fit_DemoBase {
             title.setText("");
             title.setTextSize(20);
 
-
-
-
-            if (Fit_Preset.MaxWeight == 0 || Fit_Preset.MaxHeight == 0) {
+            if (MaxWeight == 0 || Fit_Preset.MaxHeight == 0) {
                 if (Fit_User.language.equals("ko")) {
                     title.setText("측정 후 이용해주세요.");
                 } else if (Fit_User.language.equals("en")) {
@@ -761,6 +776,7 @@ public class Fit_ChartActivity extends Fit_DemoBase {
                 }
                 return;
             }
+
             if (Fit_User.language.equals("ko")) {
                 final SpannableStringBuilder sps = new SpannableStringBuilder("목 근력 나이는\n" + neckage + "세입니다.");
                 sps.setSpan(new AbsoluteSizeSpan(80), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -894,7 +910,7 @@ public class Fit_ChartActivity extends Fit_DemoBase {
 
     private int makeNeckAge(int neckage) {
         String sub = String.valueOf(neckage).substring(0, 1);
-        String sub2 = String.valueOf(Fit_User.age).substring(0, 1);
+        String sub2 = String.valueOf(age).substring(0, 1);
         neckage = neckage + (Integer.parseInt(sub2) - Integer.parseInt(sub));
         Log.d(TAG, "getAgeJson: sub : " + sub);
         Log.d(TAG, "getAgeJson: sub2 : " + sub2);

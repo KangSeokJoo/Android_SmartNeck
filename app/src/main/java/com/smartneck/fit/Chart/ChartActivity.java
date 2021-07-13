@@ -223,9 +223,7 @@ public class ChartActivity extends DemoBase {
         xAxis.setTextSize(14);
         chart.setExtraBottomOffset(20);
 
-
         ValueFormatter xAxisFormatter = new HeightAxisValueFormatter(chart, dateArray);
-
 
         xAxis.setValueFormatter(xAxisFormatter);
 
@@ -238,11 +236,11 @@ public class ChartActivity extends DemoBase {
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setTypeface(tfLight);
-        if (Constants.DEVICE_TYPE.equals("MED")) {
-
-        } else {
-
-        }
+//        if (Constants.DEVICE_TYPE.equals("MED")) {
+//
+//        } else {
+//
+//        }
 
 //        leftAxis.setValueFormatter(custom);
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
